@@ -700,6 +700,7 @@ protected:
   bool process_request(Stream &strm, bool close_connection,
                        bool &connection_closed,
                        const std::function<void(Request &)> &setup_request);
+  bool routing(Request &req, Response &res, Stream &strm);
 
   std::atomic<socket_t> svr_sock_;
   size_t keep_alive_max_count_ = CPPHTTPLIB_KEEPALIVE_MAX_COUNT;
@@ -722,7 +723,6 @@ private:
   int bind_internal(const char *host, int port, int socket_flags);
   bool listen_internal();
 
-  bool routing(Request &req, Response &res, Stream &strm);
   bool handle_file_request(const Request &req, Response &res,
                            bool head = false);
   bool dispatch_request(Request &req, Response &res, const Handlers &handlers);
